@@ -1,4 +1,6 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.35;
 
 contract Adventure {
     //Gotta encode and decode the choice strings on the frontend
@@ -23,8 +25,10 @@ contract Adventure {
 
 
 
-    constructor(string memory situationText, bytes32[] memory choiceTexts) public {
-        require(choiceTexts.length > 0,"choices");
+    constructor(string memory situationText, bytes32[] memory choiceTexts) {
+        require(choiceTexts.length > 0,"constructor failed because choises were empty");
+        require(bytes(situationText).length > 0,"constructor failed because situationText were empty");
+
 
         //Define the option count
         options[0] = choiceTexts.length;
@@ -38,16 +42,16 @@ contract Adventure {
         emit Situation(0,situationText,choiceTexts);
     }
 
-    function add_situation(
+    function addSituation(
         uint fromSituation,
         uint fromChoice,
         string memory situationText,
         bytes32[] memory choiceTexts) public{
         //Make sure there is still at least one open pathway
-        require(pathwayCount + choiceTexts.length > 1, "pathwayCount");
+        require(pathwayCount + choiceTexts.length > 1, "there was no open pathway");
 
         //Make sure they didn't leave situationText blank
-        require(bytes(situationText).length > 0,"situation");
+        require(bytes(situationText).length > 0,"situation text was blank");
 
         //Make sure this situation.choice actually exists
         require(fromChoice < options[fromSituation],"options");
@@ -55,8 +59,8 @@ contract Adventure {
         //Make sure this situation.choice hasn't been defined
         require(links[fromSituation][fromChoice] == 0,"choice");
 
-        for(uint i = 0; i < choiceTexts.length; i++){
-            require(choiceTexts[i].length > 0,"choiceLength");
+        for(uint i = 0; i < choiceTexts.length; i++) {
+            require(choiceTexts[i] != bytes32(0), "choice text cannot be empty");
         }
 
         //Increment situationCount, and this is the new situation num
@@ -78,22 +82,24 @@ contract Adventure {
 
     }
 
-    function add_signature(string memory signature) public{
+    function addSignature(string memory signature) public {
+        require(bytes(signature).length > 0, "signature cannot be empty"); // ADDED validation
         signatures[msg.sender] = signature;
     }
 
-    function get_signature(uint situation) public view returns(string memory){
+    function getSignature(uint situation) public view returns(string memory) {
         return signatures[authors[situation]];
     }
-    function get_author(uint situation) public view returns(address){
+
+    function getAuthor(uint situation) public view returns(address) {
         return authors[situation];
     }
 
-    function get_pathwayCount() public view returns(uint){
+    function getPathwayCount() public view returns(uint) {
         return pathwayCount;
     }
 
-    function get_next_situation(uint fromSituation, uint fromChoice) public view returns(uint){
+    function getNextSituation(uint fromSituation, uint fromChoice) public view returns(uint) {
         return links[fromSituation][fromChoice];
     }
 }
