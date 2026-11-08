@@ -1,25 +1,49 @@
-# = Adventureum = 
-##### The world's first text-based, crowd-sourced, decentralised choose-your-own adventure game.
-     
-Every situation and choice in this game has been defined by other players, and all this is stored on the Ethereum mainnet. 
+# ShahContract
 
-Play the game here:
-https://anallergytoanalogy.github.io/blockchain-adventure/
+A branching, crowd-written story as an Ethereum smart contract, plus a static in-browser demo that retells six
+episodes of the Shahnameh (Persian epic) in English and Persian, with a guardian-recovery wallet panel.
 
-## Playing the game
+> **Based on Adventureum by anallergytoanalogy**
+> ([blockchain-adventure](https://github.com/anallergytoanalogy/blockchain-adventure)). The contract design and the
+> original game idea are theirs. This repository adapts the contract (Solidity 0.8, a game-over fix, tests) and adds a new
+> demo and original story text.
 
-You'll be presented with situations, for each situation you'll be given one or more choices with what you want to do in that situation, and you just need to click on whichever option seems like a good idea. 
+## Licence
 
-## Adding to the story
+- **Upstream:** `anallergytoanalogy/blockchain-adventure` has no licence file, so no reuse rights are formally granted.
+  Credit is given here and on the demo; permission from the author is being sought before any wider publication.
+- **New work in this repository** (demo app, story text, tests, TS ports): © Reza Ghamar, MIT. `Adventure.sol` carries an
+  MIT SPDX header added in this fork; that header cannot grant rights the upstream author has not granted.
+- The wallet logic in the demo is a port of [R3za22/basic-eth-wallet](https://github.com/R3za22/basic-eth-wallet) (MIT).
 
-If you reach a point in the story that nobody has written yet, you'll be given the opportunity to write your own situation. You can add as many choices as you want to the situation.
+## What is here
 
-If you want to create a game-over situation, then just don't add any choices. 
+| Path | What |
+|---|---|
+| `ethereum/contracts/Adventure.sol` | The story contract: `addSituation`, `addSignature`, `getNextSituation`, ... |
+| `test/Adventure.test.ts` | Hardhat 3 tests against the real Solidity |
+| `demo/` | Vite + TypeScript static demo, base path `/demos/shahnameh/` |
+| `demo/parity/*.json` | Scenarios run against **both** Solidity and the TS ports |
+| `demo/content/` | Story text (DRAFT, see its README) |
+| `frontend/`, `index.html` | The original Adventureum browser frontend (legacy, unused by the demo) |
 
+## Change from upstream
 
-## For the devs
+`pathwayCount += choiceTexts.length - 1` reverts with an arithmetic panic on Solidity 0.8 when a situation has no choices
+(a game-over). It is now `pathwayCount = pathwayCount + choiceTexts.length - 1`.
 
-Contract Address:
-[0x77b4acc38da51a0e77c77355cfd28c1a6619f6ba](https://etherscan.io/address/0x77b4acc38da51a0e77c77355cfd28c1a6619f6ba)
+## How the demo works
 
-Also wrote [an article explaining some of the contract code](https://medium.com/coinmonks/adventures-with-dumb-contracts-18f8ce8414c9).
+The demo runs with no network: the story contract and the wallet are TypeScript ports (about 120 lines each), seeded in the page.
+An in-browser EVM was rejected: it would exceed the 500 KB gzip budget for a six-function contract. Fidelity is shown by
+running the same scenario files against the Solidity (Hardhat) and the ports (Vitest).
+
+```bash
+npm install
+npm test            # Hardhat contract tests + Vitest (parity, story graph)
+npm run dev:demo    # local dev server
+npm run build:demo  # writes demo/dist-demo/
+npm run test:e2e    # Playwright smoke (needs build:demo first, Chromium)
+```
+
+On drives that block symlinks use `npm install --no-bin-links`.

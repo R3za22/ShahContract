@@ -67,7 +67,8 @@ contract Adventure {
         situationCount++;
 
         //Adjust pathwayCount
-        pathwayCount += choiceTexts.length - 1;
+        // (a + b - 1 instead of a += b - 1: zero-choice "game over" situations must not underflow)
+        pathwayCount = pathwayCount + choiceTexts.length - 1;
 
         //Set pointer from previous situation
         links[fromSituation][fromChoice] = situationCount;

@@ -1,2 +1,8 @@
-.idea
 node_modules
+.idea
+hh-artifacts
+hh-cache
+types
+demo/dist-demo
+demo/test-results
+demo/playwright-report
