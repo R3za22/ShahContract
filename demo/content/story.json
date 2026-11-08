@@ -30,6 +30,10 @@
   "nodes": {
     "simurgh": {
       "ep": 1,
+      "title": {
+        "en": "Zal and the Simurgh",
+        "fa": "زال و سیمرغ"
+      },
       "next": [
         "rakhsh",
         "nest-end"
@@ -51,6 +55,10 @@
     },
     "nest-end": {
       "ep": 1,
+      "title": {
+        "en": "The Nest",
+        "fa": "آشیانه"
+      },
       "next": [],
       "en": {
         "text": "You stay, and then you stay again. The seasons turn on the mountain. Zal is happy, but the world below never hears his name, and the stories of Iran begin with someone else. THE END.",
@@ -63,6 +71,10 @@
     },
     "rakhsh": {
       "ep": 2,
+      "title": {
+        "en": "Rakhsh",
+        "fa": "رخش"
+      },
       "next": [
         "whitediv",
         "rakhsh-end"
@@ -84,6 +96,10 @@
     },
     "rakhsh-end": {
       "ep": 2,
+      "title": {
+        "en": "The Wrong Horse",
+        "fa": "اسب نادرست"
+      },
       "next": [],
       "en": {
         "text": "The big horse is all noise. It folds under Rostam's hand and does not rise again. He walks home on foot and the hero's road is long and slow. THE END.",
@@ -96,6 +112,10 @@
     },
     "whitediv": {
       "ep": 3,
+      "title": {
+        "en": "The White Demon",
+        "fa": "دیو سپید"
+      },
       "next": [
         "sohrab",
         "turnback-end"
@@ -117,6 +137,10 @@
     },
     "turnback-end": {
       "ep": 3,
+      "title": {
+        "en": "Turning Back",
+        "fa": "بازگشت"
+      },
       "next": [],
       "en": {
         "text": "You turn back. The King never sees again, and the court quietly decides that Rostam was only a rumour. THE END.",
@@ -129,6 +153,10 @@
     },
     "sohrab": {
       "ep": 4,
+      "title": {
+        "en": "Rostam and Sohrab",
+        "fa": "رستم و سهراب"
+      },
       "next": [
         "reunion",
         "duel"
@@ -150,6 +178,10 @@
     },
     "reunion": {
       "ep": 4,
+      "title": {
+        "en": "The Reunion",
+        "fa": "دیدار"
+      },
       "next": [
         "esfandiyar",
         null
@@ -171,6 +203,10 @@
     },
     "duel": {
       "ep": 4,
+      "title": {
+        "en": "The Duel",
+        "fa": "نبرد"
+      },
       "next": [
         "siyavash",
         "tragedy"
@@ -192,6 +228,10 @@
     },
     "tragedy": {
       "ep": 4,
+      "title": {
+        "en": "The Third Day",
+        "fa": "روز سوم"
+      },
       "next": [],
       "en": {
         "text": "On the third day the old strength returns, and the young one falls. Dying, Sohrab shows the armband on his arm. Rostam learns what he has done. This is the oldest sorrow of the Shahnameh and the story offers no way out. THE END.",
@@ -204,6 +244,10 @@
     },
     "siyavash": {
       "ep": 6,
+      "title": {
+        "en": "Siyavash and the Fire",
+        "fa": "سیاوش و آتش"
+      },
       "next": [
         "fire-end",
         "cancel-end"
@@ -225,6 +269,10 @@
     },
     "fire-end": {
       "ep": 6,
+      "title": {
+        "en": "Through the Fire",
+        "fa": "گذر از آتش"
+      },
       "next": [],
       "en": {
         "text": "He rides in. The flames part around him like water, and he comes out without a scorch. Honour is proven, though the court will not forgive him for it. THE END.",
@@ -237,6 +285,10 @@
     },
     "cancel-end": {
       "ep": 6,
+      "title": {
+        "en": "The Trial Cancelled",
+        "fa": "لغو آزمون"
+      },
       "next": [],
       "en": {
         "text": "The King, pleased to be asked, cancels the trial. The slander stays in the air and the prince leaves for exile with a name nobody has cleared. THE END.",
@@ -249,6 +301,10 @@
     },
     "esfandiyar": {
       "ep": 5,
+      "title": {
+        "en": "Esfandiyar",
+        "fa": "اسفندیار"
+      },
       "next": [
         "esf-fight-end",
         null
@@ -270,6 +326,10 @@
     },
     "esf-fight-end": {
       "ep": 5,
+      "title": {
+        "en": "The Arrow",
+        "fa": "تیر"
+      },
       "next": [],
       "en": {
         "text": "The Simurgh answers the burned feather and shows Rostam where the prince is weak: the eyes. The prince falls, and Rostam is left with a victory that feels like a verdict. THE END.",

@@ -10,11 +10,14 @@
     "test:demo": "node node_modules/vitest/vitest.mjs run --root demo",
     "test": "npm run test:contracts && npm run test:demo",
     "dev:demo": "node node_modules/vite/bin/vite.js --config demo/vite.config.ts",
-    "build:demo": "node node_modules/typescript/bin/tsc -p demo && node node_modules/vite/bin/vite.js build --config demo/vite.config.ts",
+    "build:demo": "node node_modules/typescript/bin/tsc -p demo && node node_modules/vite/bin/vite.js build --mode demo --config demo/vite.config.ts",
     "test:e2e": "node node_modules/@playwright/test/cli.js test -c demo/playwright.config.ts",
     "lint:sol": "node node_modules/solhint/solhint.js 'contracts/**/*.sol'",
     "deploy:dry": "node node_modules/hardhat/dist/src/cli.js run scripts/deploy.ts",
-    "deploy:sepolia": "node node_modules/hardhat/dist/src/cli.js run scripts/deploy.ts --network sepolia"
+    "deploy:sepolia": "node node_modules/hardhat/dist/src/cli.js run scripts/deploy.ts --network sepolia",
+    "typecheck": "node node_modules/typescript/bin/tsc -p demo",
+    "build": "node node_modules/typescript/bin/tsc -p demo && node node_modules/vite/bin/vite.js build --config demo/vite.config.ts",
+    "preview:demo": "node node_modules/vite/bin/vite.js preview --config demo/vite.config.ts --port 4173"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox-mocha-ethers": "^4.0.0",
@@ -31,6 +34,7 @@
     "@fontsource/fraunces": "^5.3.0",
     "@fontsource/ibm-plex-mono": "^5.3.0",
     "@fontsource/ibm-plex-sans": "^5.3.0",
-    "@fontsource/vazirmatn": "^5.3.0"
+    "@fontsource/vazirmatn": "^5.3.0",
+    "preact": "^11.2.0"
   }
 }
