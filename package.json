@@ -1,17 +1,40 @@
 {
-  "name": "chain_adventure",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "shahcontract",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ShahnamehStory: an on-chain, crowd-written branching Shahnameh, with a wallet-connected dApp and an in-browser demo",
+  "license": "MIT",
   "scripts": {
-    "test": "mocha"
+    "test:contracts": "node node_modules/hardhat/dist/src/cli.js test",
+    "test:demo": "node node_modules/vitest/vitest.mjs run --root demo",
+    "test": "npm run test:contracts && npm run test:demo",
+    "dev:demo": "node node_modules/vite/bin/vite.js --config demo/vite.config.ts",
+    "build:demo": "node node_modules/typescript/bin/tsc -p demo && node node_modules/vite/bin/vite.js build --mode demo --config demo/vite.config.ts",
+    "test:e2e": "node node_modules/@playwright/test/cli.js test -c demo/playwright.config.ts",
+    "lint:sol": "node node_modules/solhint/solhint.js 'contracts/**/*.sol'",
+    "deploy:dry": "node node_modules/hardhat/dist/src/cli.js run scripts/deploy.ts",
+    "deploy:sepolia": "node node_modules/hardhat/dist/src/cli.js run scripts/deploy.ts --network sepolia",
+    "typecheck": "node node_modules/typescript/bin/tsc -p demo",
+    "build": "node node_modules/typescript/bin/tsc -p demo && node node_modules/vite/bin/vite.js build --config demo/vite.config.ts",
+    "preview:demo": "node node_modules/vite/bin/vite.js preview --config demo/vite.config.ts --port 4173"
   },
-  "author": "",
-  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-mocha-ethers": "^4.0.0",
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6",
+    "ethers": "^6.17.0",
+    "hardhat": "^3.21.2",
+    "solhint": "^6.2.5",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0"
+  },
   "dependencies": {
-    "ganache-cli": "^6.4.3",
-    "mocha": "^5.2.0",
-    "solc": "^0.5.8",
-    "web3": "^1.0.0-beta.54"
+    "@fontsource/fraunces": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/vazirmatn": "^5.3.0",
+    "preact": "^11.2.0"
   }
 }
