@@ -1,0 +1,1417 @@
+{
+ "_doc": "Shared by the Solidity tests and the TS port in demo/src. Actors a0 (deployer),a1,a2. Strings like $x32 expand to 'x' repeated 32 times. `wait` advances the clock by N seconds. `revert` is the custom error name.",
+ "scenarios": [
+  {
+   "name": "opening chapter is stored",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [],
+   "expect": {
+    "chapters": 1,
+    "open": 2,
+    "author": {
+     "0": "a0"
+    }
+   }
+  },
+  {
+   "name": "writing fills a branch and opens new ones",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "chapters": 2,
+    "open": 3,
+    "child": [
+     [
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0
+     ]
+    ],
+    "author": {
+     "1": "a1"
+    }
+   }
+  },
+  {
+   "name": "an ending closes a branch without opening any",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [],
+      []
+     ]
+    }
+   ],
+   "expect": {
+    "chapters": 2,
+    "open": 1,
+    "child": [
+     [
+      0,
+      0,
+      1
+     ]
+    ]
+   }
+  },
+  {
+   "name": "the last open branch cannot be closed",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [],
+      []
+     ]
+    },
+    {
+     "as": "a2",
+     "call": "writeChapter",
+     "args": [
+      0,
+      1,
+      "T",
+      "e",
+      "ف",
+      [],
+      []
+     ],
+     "revert": "LastOpenBranch"
+    }
+   ],
+   "expect": {
+    "chapters": 2,
+    "open": 1
+   }
+  },
+  {
+   "name": "a branch can only be written once",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    },
+    {
+     "as": "a2",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ],
+     "revert": "BranchTaken"
+    }
+   ],
+   "expect": {
+    "chapters": 2
+   }
+  },
+  {
+   "name": "unknown parent rejected",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      9,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ],
+     "revert": "UnknownChapter"
+    }
+   ],
+   "expect": {
+    "chapters": 1
+   }
+  },
+  {
+   "name": "unknown branch rejected",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      2,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ],
+     "revert": "UnknownBranch"
+    }
+   ],
+   "expect": {
+    "chapters": 1
+   }
+  },
+  {
+   "name": "cooldown blocks a second write",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    },
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      1,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ],
+     "revert": "CooldownActive"
+    }
+   ],
+   "expect": {
+    "chapters": 2
+   }
+  },
+  {
+   "name": "cooldown is per address",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    },
+    {
+     "as": "a2",
+     "call": "writeChapter",
+     "args": [
+      0,
+      1,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "chapters": 3
+   }
+  },
+  {
+   "name": "cooldown expires",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    },
+    {
+     "as": "a0",
+     "call": "wait",
+     "args": [
+      61
+     ]
+    },
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      1,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "chapters": 3
+   }
+  },
+  {
+   "name": "zero cooldown allows back-to-back writes",
+   "init": {
+    "cooldown": 0,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    },
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      1,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "chapters": 3
+   }
+  },
+  {
+   "name": "empty title rejected",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ],
+     "revert": "EmptyTitle"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "title over 63 bytes rejected",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "$x64",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ],
+     "revert": "TitleTooLong"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "title of exactly 63 bytes accepted",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "$x63",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "chapters": 2
+   }
+  },
+  {
+   "name": "empty English text rejected",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ],
+     "revert": "EmptyText"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "empty Persian text rejected",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ],
+     "revert": "EmptyText"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "text over the combined limit rejected",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "$x600",
+      "$x601",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ],
+     "revert": "TextTooLong"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "text at exactly the combined limit accepted",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "$x600",
+      "$x600",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "chapters": 2
+   }
+  },
+  {
+   "name": "one branch is not enough",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A"
+      ],
+      [
+       "الف"
+      ]
+     ],
+     "revert": "BadBranchCount"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "four branches are too many",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B",
+       "C",
+       "D"
+      ],
+      [
+       "1",
+       "2",
+       "3",
+       "4"
+      ]
+     ],
+     "revert": "BadBranchCount"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "three branches accepted",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B",
+       "C"
+      ],
+      [
+       "1",
+       "2",
+       "3"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "chapters": 2,
+    "open": 4
+   }
+  },
+  {
+   "name": "label counts must match",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "1",
+       "2",
+       "3"
+      ]
+     ],
+     "revert": "LabelCountMismatch"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "empty label rejected",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       ""
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ],
+     "revert": "EmptyLabel"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "English label over 31 bytes rejected",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "$x32"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ],
+     "revert": "LabelTooLong"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "English label of exactly 31 bytes accepted",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "$x31"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "chapters": 2
+   }
+  },
+  {
+   "name": "Persian label over 31 bytes rejected (two bytes per letter)",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "$ا16"
+      ]
+     ],
+     "revert": "LabelTooLong"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "Persian label of 15 letters (30 bytes) accepted",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "$ا15"
+      ]
+     ]
+    }
+   ],
+   "expect": {
+    "chapters": 2
+   }
+  },
+  {
+   "name": "choosing a written branch is counted once per chapter",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a1",
+     "call": "writeChapter",
+     "args": [
+      0,
+      0,
+      "T",
+      "e",
+      "ف",
+      [
+       "A",
+       "B"
+      ],
+      [
+       "الف",
+       "ب"
+      ]
+     ]
+    },
+    {
+     "as": "a2",
+     "call": "chooseBranch",
+     "args": [
+      0,
+      0
+     ]
+    },
+    {
+     "as": "a2",
+     "call": "chooseBranch",
+     "args": [
+      0,
+      0
+     ],
+     "revert": "AlreadyChosen"
+    },
+    {
+     "as": "a0",
+     "call": "chooseBranch",
+     "args": [
+      0,
+      0
+     ]
+    }
+   ],
+   "expect": {
+    "choices": [
+     [
+      0,
+      0,
+      2
+     ]
+    ]
+   }
+  },
+  {
+   "name": "choosing an open branch is rejected",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a2",
+     "call": "chooseBranch",
+     "args": [
+      0,
+      1
+     ],
+     "revert": "BranchNotWritten"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "choosing an unknown branch or chapter is rejected",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [
+    {
+     "as": "a2",
+     "call": "chooseBranch",
+     "args": [
+      0,
+      2
+     ],
+     "revert": "UnknownBranch"
+    },
+    {
+     "as": "a2",
+     "call": "chooseBranch",
+     "args": [
+      5,
+      0
+     ],
+     "revert": "UnknownChapter"
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "deploy needs at least one branch",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [],
+    "labelsFa": []
+   },
+   "steps": [],
+   "expect": {},
+   "deployRevert": "BadBranchCount"
+  },
+  {
+   "name": "deploy rejects a cooldown over a day",
+   "init": {
+    "cooldown": 86401,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "Go",
+     "Stay"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [],
+   "expect": {},
+   "deployRevert": "InvalidCooldown"
+  },
+  {
+   "name": "deploy validates the opening chapter",
+   "init": {
+    "cooldown": 60,
+    "title": "Zal",
+    "textEn": "A child on Alborz.",
+    "textFa": "کودکی در البرز.",
+    "labelsEn": [
+     "A",
+     "$x32"
+    ],
+    "labelsFa": [
+     "برو",
+     "بمان"
+    ]
+   },
+   "steps": [],
+   "expect": {},
+   "deployRevert": "LabelTooLong"
+  }
+ ]
+}

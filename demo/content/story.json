@@ -37,15 +37,15 @@
       "en": {
         "text": "A baby with white hair is left on the slopes of Alborz. The Simurgh, a bird as old as the mountain, carries him to her nest and raises him. Years later Zal is a young man, and the bird gives him a golden feather: burn it, and I will come.",
         "choices": [
-          "Take the feather and go to the court of Sam",
-          "Stay another night in the nest"
+          "Take the feather",
+          "Stay one more night"
         ]
       },
       "fa": {
         "text": "کودکی با موی سپید در دامنه‌ی البرز رها می‌شود. سیمرغ، پرنده‌ای به قدمت کوه، او را به آشیانه می‌برد و می‌پروراند. سال‌ها بعد زال جوانی شده است و سیمرغ پری زرین به او می‌دهد: آن را بسوزان تا بیایم.",
         "choices": [
-          "پر را بردار و به دربار سام برو",
-          "یک شب دیگر در آشیانه بمان"
+          "پر را بردار",
+          "یک شب بمان"
         ]
       }
     },
@@ -70,15 +70,15 @@
       "en": {
         "text": "Zal's son Rostam is grown, and he needs a horse. The herdsmen drive hundreds past him. He presses a hand on each back; every one bends like a reed. Then a rust-and-rose colt with a lioness' fire trots up, and its mother will not let anyone near.",
         "choices": [
-          "Press down on the colt that does not buckle",
-          "Pick the tallest, loudest horse instead"
+          "The colt that won't buckle",
+          "The tallest, loudest horse"
         ]
       },
       "fa": {
         "text": "رستم، پسر زال، بزرگ شده و اسب می‌خواهد. چوپانان صدها اسب را از برابرش می‌گذرانند. دست بر پشت هر یک می‌فشارد و همه مثل نی خم می‌شوند. آن‌گاه کره‌ای به رنگ زنگ و گلبرگ، با آتش شیر ماده، پیش می‌آید و مادرش نمی‌گذارد کسی نزدیک شود.",
         "choices": [
-          "دست بر کره‌ای بگذار که خم نمی‌شود",
-          "اسب بلندتر و پرهیاهوتر را برگزین"
+          "کره‌ی استوار",
+          "اسب پرهیاهو"
         ]
       }
     },
@@ -103,14 +103,14 @@
       "en": {
         "text": "With Rakhsh beside him, Rostam crosses six trials: a lion, a desert, a witch, and more. The seventh waits in a cave in Mazandaran, where the White Demon sleeps. The King is blind, and only the demon's blood can cure him.",
         "choices": [
-          "Enter the cave of the White Demon",
+          "Enter the demon's cave",
           "Turn back at the border"
         ]
       },
       "fa": {
         "text": "رستم با رخش از شش آزمون می‌گذرد: شیر، بیابان، جادوگر و بیش از این. آزمون هفتم در غاری در مازندران است، جایی که دیو سپید خفته است. شاه نابیناست و تنها خون دیو درمانش است.",
         "choices": [
-          "به غار دیو سپید وارد شو",
+          "به غار دیو برو",
           "از مرز بازگرد"
         ]
       }
@@ -136,14 +136,14 @@
       "en": {
         "text": "Years before, Rostam spent one night with Tahmina, a princess of Samangan, and left an armband with her. Now her son Sohrab, barely grown, leads the army of Turan against Iran. Across the plain he looks for his father, and one old warrior seems to fit the description.",
         "choices": [
-          "Tell the young champion your name",
+          "Tell him your name",
           "Keep your name hidden"
         ]
       },
       "fa": {
         "text": "سال‌ها پیش رستم یک شب را با تهمینه، شاهزاده‌ی سمنگان، گذراند و بازوبندی نزد او گذاشت. اکنون پسرش سهراب، بی‌آن‌که کاملاً بالغ شده باشد، سپاه توران را بر ضد ایران رهبری می‌کند. در دشت پدرش را می‌جوید و پهلوانی کهن‌سال به نشانی‌ها می‌ماند.",
         "choices": [
-          "نام خود را به پهلوان جوان بگو",
+          "نامت را بگو",
           "نامت را پنهان کن"
         ]
       }
@@ -151,18 +151,21 @@
     "reunion": {
       "ep": 4,
       "next": [
-        "esfandiyar"
+        "esfandiyar",
+        null
       ],
       "en": {
         "text": "In this telling, you say it: I am Rostam. Sohrab drops his spear. The armbands match, and two armies watch a father and a son embrace on the plain. The war ends before it begins, which the old poets never allowed.",
         "choices": [
-          "Ride home to Zabulistan together"
+          "Ride home together",
+          "Rest by the river"
         ]
       },
       "fa": {
         "text": "در این روایت می‌گویی: من رستمم. سهراب نیزه را زمین می‌گذارد. بازوبندها یکی هستند و دو سپاه پدر و پسری را می‌بینند که در دشت یکدیگر را در آغوش می‌گیرند. جنگ پیش از آغاز پایان می‌یابد، کاری که شاعران کهن هرگز روا نداشتند.",
         "choices": [
-          "با هم به زابلستان بتازید"
+          "با هم برگردید",
+          "کنار رود بمانید"
         ]
       }
     },
@@ -175,15 +178,15 @@
       "en": {
         "text": "You fight under a false name. On the first day neither falls. On the second, Sohrab has you on the ground and lets you rise. Something in how he fights is familiar and it unsettles you.",
         "choices": [
-          "Ask for peace and take him to the camp",
+          "Ask for peace",
           "Fight on the third day"
         ]
       },
       "fa": {
         "text": "با نامی دروغین می‌جنگی. روز نخست هیچ‌یک نمی‌افتد. روز دوم سهراب تو را بر زمین می‌افکند و رهایت می‌کند. چیزی در شیوه‌ی جنگیدنش آشناست و آرامت نمی‌گذارد.",
         "choices": [
-          "صلح بخواه و او را به اردو ببر",
-          "روز سوم نبرد کن"
+          "صلح بخواه",
+          "روز سوم بجنگ"
         ]
       }
     },
@@ -208,15 +211,15 @@
       "en": {
         "text": "Over the first meal of peace, Rostam tells Sohrab about another boy he once raised, the prince Siyavash. Slandered by his stepmother, Siyavash offered to prove his honour by riding through a wall of fire.",
         "choices": [
-          "Let Siyavash ride through the fire",
-          "Beg the King to cancel the trial"
+          "Let him ride the fire",
+          "Beg the King to cancel"
         ]
       },
       "fa": {
         "text": "بر سر نخستین سفره‌ی صلح، رستم به سهراب از پسری دیگر می‌گوید که پرورده بود، شاهزاده سیاوش. سیاوش را نامادری‌اش بدنام کرده بود و او پیشنهاد داد با گذشتن اسب‌سوار از دیواری از آتش پاکی‌اش را ثابت کند.",
         "choices": [
-          "بگذار سیاوش از آتش بگذرد",
-          "از شاه بخواه آزمون را لغو کند"
+          "از آتش بگذرد",
+          "از شاه لغو بخواه"
         ]
       }
     },
@@ -253,15 +256,15 @@
       "en": {
         "text": "Years pass in Zabulistan. Prince Esfandiyar, whose body no blade can pierce, comes with the King's order: Rostam must kneel in chains. Rostam offers a feast, a throne, a hundred horses, anything except the chains.",
         "choices": [
-          "Fight to defend your honour",
-          "Yield, and let the King have his way"
+          "Fight for your honour",
+          "Yield to the King"
         ]
       },
       "fa": {
         "text": "سال‌ها در زابلستان می‌گذرد. شاهزاده اسفندیار، که هیچ تیغی بر تنش کارگر نیست، با فرمان شاه می‌آید: رستم باید در بند زانو بزند. رستم جشن و تخت و صد اسب پیشکش می‌کند، همه چیز جز بند.",
         "choices": [
-          "برای پاسداشت نامت بجنگ",
-          "تسلیم شو و بگذار شاه به خواسته‌اش برسد"
+          "برای نامت بجنگ",
+          "به شاه تسلیم شو"
         ]
       }
     },

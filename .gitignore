@@ -6,3 +6,5 @@ types
 demo/dist-demo
 demo/test-results
 demo/playwright-report
+.env
+.env.*

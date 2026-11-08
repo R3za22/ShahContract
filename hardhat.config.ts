@@ -1,9 +1,18 @@
-import { defineConfig } from "hardhat/config";
+import { configVariable, defineConfig } from "hardhat/config";
 import hardhatToolboxMochaEthers from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
 
+// Secrets are read lazily from the environment (or the Hardhat keystore) and never stored in this repo.
+//   SEPOLIA_RPC_URL=...  SEPOLIA_PRIVATE_KEY=...  npm run deploy:sepolia
 export default defineConfig({
   plugins: [hardhatToolboxMochaEthers],
   solidity: { version: "0.8.35" },
-  // Kept apart from the legacy `artifacts/` and `ethereum/build/` outputs checked in from the original fork.
-  paths: { sources: "./ethereum/contracts", artifacts: "./hh-artifacts", cache: "./hh-cache", tests: { mocha: "./test" } },
+  paths: { sources: "./contracts", artifacts: "./hh-artifacts", cache: "./hh-cache", tests: { mocha: "./test" } },
+  networks: {
+    sepolia: {
+      type: "http",
+      chainType: "l1",
+      url: configVariable("SEPOLIA_RPC_URL"),
+      accounts: [configVariable("SEPOLIA_PRIVATE_KEY")],
+    },
+  },
 });
